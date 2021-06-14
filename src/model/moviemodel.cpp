@@ -57,21 +57,9 @@ QVariant MovieModel::data(const QModelIndex &index, int role) const
         break;
     case RYear : return movie->year();
         break;
-    case RRating : return movie->rating();
-        break;
     case RGenres : return movie->genres();
         break;
-    case RRuntime : return movie->runtime();
-        break;
-    case RCountry : return movie->country();
-        break;
-    case RLanguage : return movie->language();
-        break;
     case RImdbScore : return movie->imdb_score();
-        break;
-    case RImdbVotes : return movie->imdb_votes();
-        break;
-    case RMetacriticScore : return movie->metacritic_score();
         break;
     case RFull:
         return QVariant::fromValue(movie);
@@ -88,14 +76,8 @@ QHash<int, QByteArray> MovieModel::roleNames() const
     roles[RTitle] = "title";
     roles[RDirector] = "director";
     roles[RYear] = "year";
-    roles[RRating] = "rating";
     roles[RGenres] = "genres";
-    roles[RRuntime] = "runtime";
-    roles[RCountry] = "country";
-    roles[RLanguage] = "language";
     roles[RImdbScore] = "imdb_score";
-    roles[RImdbVotes] = "imdb_votes";
-    roles[RMetacriticScore] = "metacritic_score";
     roles[RFull]   = "fullMovie";
 
     return roles;

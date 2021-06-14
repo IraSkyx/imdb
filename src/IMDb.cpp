@@ -20,34 +20,20 @@ MovieList* stub_movielist() {
 
     movies->push_back(new Movie(
                           1,
-                          "tt0050083",
                           "12 Angry Men",
                           "Sidney Lumet",
                           1957,
-                          "APPROVED",
                           "Crime, Drama",
-                          96,
-                          "USA",
-                          "English",
-                          8.9,
-                          551194,
-                          96
+                          8.9
                   ));
 
     movies->push_back(new Movie(
                           2,
-                          "tt0062622",
                           "2001: A Space Odyssey",
                           "Stanley Kubrick",
                           1968,
-                          "G",
-                          "Adventure, Sci-Fi",
-                          149,
-                          "UK, USA",
-                          "English, Russian",
-                          8.3,
-                          508060,
-                          82
+                          "Adventure, Sci-Fi",                        
+                          8.3
                   ));
 
     return movies;

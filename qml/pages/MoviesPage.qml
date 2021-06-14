@@ -7,8 +7,8 @@ Page {
 
     allowedOrientations: Orientation.All
 
-    SilicaFlickable {
-        anchors.fill: parent
+    SilicaListView {
+        id: listView
 
         PullDownMenu {
             MenuItem {
@@ -22,55 +22,42 @@ Page {
             }
         }
 
-        contentHeight: column.height
-
-        Column {
-            id: column
-
-            width: page.width
-            spacing: Theme.paddingLarge
-
-            SilicaListView {
-                id: listView
-
-                model: MovieModel {
-                }
-
-                Component.onCompleted: {
-                    console.log(movieList)
-                    model.setList(movieList)
-                }
-
-                anchors.fill: parent
-                header: PageHeader {
-                    title: qsTr("IMDb movies")
-                }
-                delegate: BackgroundItem {
-                    id: delegate
-                    width: listView.width
-
-                    Label {
-                        id: l_title
-                        x: Theme.horizontalPageMargin
-                        text: title
-                        color: Theme.highlightColor
-                    }
-
-                    Label {
-                        text: genres
-                        anchors.right: parent.right
-                    }
-
-
-                    height: tname.height
-
-                    onClicked: {
-                        //pageStack.push("MoviePage.qml", { movie: fullMovie } )
-                    }
-
-                }
-                VerticalScrollDecorator {}
-            }
+        model: MovieModel {
         }
+
+        Component.onCompleted: {
+            console.log(movieList)
+            model.setList(movieList)
+        }
+
+        anchors.fill: parent
+        header: PageHeader {
+            title: qsTr("IMDb movies")
+        }
+        delegate: BackgroundItem {
+            id: delegate
+            width: listView.width
+
+            Label {
+                id: l_title
+                x: Theme.horizontalPageMargin
+                text: title
+                color: Theme.highlightColor
+            }
+
+            Label {
+                text: genres
+                anchors.right: parent.right
+            }
+
+
+            height: tname.height
+
+            onClicked: {
+                //pageStack.push("MoviePage.qml", { movie: fullMovie } )
+            }
+
+        }
+        VerticalScrollDecorator {}
     }
 }

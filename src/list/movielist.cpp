@@ -49,6 +49,13 @@ MovieList::~MovieList()
 void MovieList::registerMovie(int index)
 {
     auto movie = m_movies[index];
+
+    connect(movie,&Movie::idChanged, [=](){ emit itemChanged(index); });
+    connect(movie,&Movie::titleChanged,   [=](){ emit itemChanged(index); });
+    connect(movie,&Movie::directorChanged, [=](){ emit itemChanged(index); });
+    connect(movie,&Movie::yearChanged, [=](){ emit itemChanged(index); });
+    connect(movie,&Movie::genresChanged, [=](){ emit itemChanged(index); });
+    connect(movie,&Movie::imdbScoreChanged, [=](){ emit itemChanged(index); });
 }
 
 

@@ -1,12 +1,12 @@
 #include "movie.h"
 
-Movie::Movie(QObject *parent): QObject(parent)
+Movie::Movie()
 {
 
 }
 
-Movie::Movie(int m_id, QString m_imdb_id, QString m_title, QString m_director, int m_year, QString m_rating, QString m_genres, int m_runtime, QString m_country, QString m_language, double m_imdb_score, int m_imdb_votes, int m_metacritic_score)
-: m_id(m_id), m_imdb_id(m_imdb_id), m_title(m_title), m_director(m_director), m_year(m_year), m_rating(m_rating), m_genres(m_genres), m_runtime(m_runtime), m_country(m_country), m_language(m_language), m_imdb_score(m_imdb_score), m_imdb_votes(m_imdb_votes), m_metacritic_score(m_metacritic_score)
+Movie::Movie(int m_id, QString m_title, QString m_director, int m_year, QString m_genres, double m_imdb_score, QObject *parent)
+: QObject(parent), m_id(m_id), m_title(m_title), m_director(m_director), m_year(m_year), m_genres(m_genres), m_imdb_score(m_imdb_score)
 {
 
 }
@@ -14,11 +14,6 @@ Movie::Movie(int m_id, QString m_imdb_id, QString m_title, QString m_director, i
 int Movie::id() const
 {
     return this->m_id;
-}
-
-QString Movie::imdb_id() const
-{
-    return this->m_imdb_id;
 }
 
 QString Movie::title() const
@@ -36,29 +31,9 @@ int Movie::year() const
     return this->m_year;
 }
 
-QString Movie::rating() const
-{
-    return this->m_rating;
-}
-
 QString Movie::genres() const
 {
     return this->m_genres;
-}
-
-int Movie::runtime() const
-{
-    return this->m_runtime;
-}
-
-QString Movie::country() const
-{
-    return this->m_country;
-}
-
-QString Movie::language() const
-{
-    return this->m_language;
 }
 
 double Movie::imdb_score() const
@@ -66,12 +41,56 @@ double Movie::imdb_score() const
     return this->m_imdb_score;
 }
 
-int Movie::imdb_votes() const
+void Movie::setId(int id)
 {
-    return this->m_imdb_votes;
+    if (m_id == id)
+        return;
+
+    m_id = id;
+    emit idChanged(m_id);
 }
 
-int Movie::metacritic_score() const
+void Movie::setTitle(QString title)
 {
-    return this->m_metacritic_score;
+    if (m_title == title)
+        return;
+
+    m_title = title;
+    emit titleChanged(m_title);
+}
+
+void Movie::setDirector(QString director)
+{
+    if (m_director == director)
+        return;
+
+    m_director = director;
+    emit directorChanged(m_director);
+}
+
+void Movie::setYear(int year)
+{
+    if (m_year == year)
+        return;
+
+    m_year = year;
+    emit yearChanged(m_year);
+}
+
+void Movie::setGenres(QString genres)
+{
+    if (m_genres == genres)
+        return;
+
+    m_genres = genres;
+    emit genresChanged(m_genres);
+}
+
+void Movie::setImdbScore(double imdbScore)
+{
+    if (m_imdb_score == imdbScore)
+        return;
+
+    m_imdb_score = imdbScore;
+    emit imdbScoreChanged(m_imdb_score);
 }
