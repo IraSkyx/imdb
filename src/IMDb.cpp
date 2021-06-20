@@ -13,71 +13,59 @@
 
 #include "domain/movie.h"
 #include "list/movielist.h"
+#include "list/moviefilter.h"
 #include "model/moviemodel.h"
+
+#include "domain/actor.h"
+#include "list/actorlist.h"
+#include "list/actorfilter.h"
+#include "model/actormodel.h"
+
+#include "datamanager/datamanager.h"
 
 MovieList* stub_movielist() {
     MovieList* movies = new MovieList;
 
     movies->push_back(new Movie(
                           1,
+                          "tt0050083",
                           "12 Angry Men",
                           "Sidney Lumet",
                           1957,
-                          "Crime, Drama",
-                          8.9
+                          "Crime, Drama"
                   ));
 
     movies->push_back(new Movie(
                           2,
+                          "tt0062622",
                           "2001: A Space Odyssey",
                           "Stanley Kubrick",
                           1968,
-                          "Adventure, Sci-Fi",                        
-                          8.3
+                          "Adventure, Sci-Fi"
                   ));
 
     return movies;
 }
 
-/*QStringList readTables(const char *path)
-{
-    QStringList tables;
+ActorList* stub_actorlist() {
+    ActorList* actors = new ActorList;
 
-    {
-        QFile file(path);
-        if (!file.open(QIODevice::ReadOnly)) {
-            qDebug() << "Opening " << path << " : " << file.errorString();
-            return tables;
-        }
-    }
+    actors->push_back(new Actor(
+                          1,
+                          "nm0000020",
+                          1,
+                          "Henry Fonda"
+                  ));
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    actors->push_back(new Actor(
+                          2,
+                          "nm0000842",
+                          1,
+                          "Martin Balsam"
+                  ));
 
-    db.setDatabaseName(path);
-    if (!db.open())
-    {
-        qDebug() << "La bdd n'est pas ouverte" << db.lastError();
-        return tables;
-    }
-
-    QSqlQuery
-        query("SELECT name FROM sqlite_master WHERE type IN ('table','view') AND name NOT LIKE "
-              "'sqlite_%' ORDER BY 1",
-              db);
-
-    while (query.next()) {
-        tables.push_back(query.value(0).toString());
-        qDebug() << tables.last();
-    }
-    if (query.lastError().type()
-        != QSqlError::NoError) // NoError en fin de parcours => ne rien afficher
-        qDebug() << "After next" << query.lastError();
-
-    db.close();
-
-    return tables;
-}*/
-
+    return actors;
+}
 
 int main(int argc, char *argv[])
 {
@@ -86,12 +74,26 @@ int main(int argc, char *argv[])
     qmlRegisterType<MovieModel>("MovieLib", 1, 0, "MovieModel");
     qmlRegisterUncreatableType<MovieList>("MovieLib", 1, 0, "MovieList", "Le métier crée les données, pas la vue!");
     qmlRegisterType<Movie>("MovieLib", 1, 0, "Movie");
+    qmlRegisterType<MovieFilter>("MovieLib", 1, 0, "MovieFilter");
+
+    qmlRegisterType<ActorModel>("ActorLib", 1, 0, "ActorModel");
+    qmlRegisterUncreatableType<ActorList>("ActorLib", 1, 0, "ActorList", "Le métier crée les données, pas la vue!");
+    qmlRegisterType<Actor>("ActorLib", 1, 0, "Actor");
+    qmlRegisterType<ActorFilter>("ActorLib", 1, 0, "ActorFilter");
 
     QScopedPointer<QQuickView> view(SailfishApp::createView());
-    view->setSource(SailfishApp::pathToMainQml());
 
-    QScopedPointer<MovieList> movies(stub_movielist());
+    auto dataManager = new DataManager;
+
+    //QScopedPointer<MovieList> movies(stub_movielist());
+    QScopedPointer<MovieList> movies(dataManager->loadMovies());
     view->rootContext()->setContextProperty("movieList", movies.data());
+
+    //QScopedPointer<MovieList> movies(stub_actorlist());
+    QScopedPointer<ActorList> actors(dataManager->loadActors());
+    view->rootContext()->setContextProperty("actorList", actors.data());
+
+    view->setSource(SailfishApp::pathToMainQml());
 
     view->show();
     return app->exec();

@@ -1,18 +1,18 @@
 Name: IMDb
-Summary: My Sailfish OS Application
+Summary: Ratings, Reviews, and Where to Watch the Best Movies ...
 Version: 0.1
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS
-Group: Qt/Qt
-URL: http://example.org/
+Group: Applications/Multimedia
+URL: https://www.imdb.com/
 License: LICENSE
 # This must be generated before uploading a package to a remote build service.
 # Usually this line does not need to be modified.
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
-  Short description of my Sailfish OS Application
+  Ratings, Reviews, and Where to Watch the Best Movies ...
 Builder: qmake5
 
 # This section specifies build dependencies that are resolved using pkgconfig.

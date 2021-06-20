@@ -1,18 +1,19 @@
-#ifndef MOVIEMODEL_H
-#define MOVIEMODEL_H
+#ifndef ACTORMODEL_H
+#define ACTORMODEL_H
 
 #include <QObject>
 #include <QAbstractListModel>
-#include "../list/movielist.h"
 
-class MovieModel : public QAbstractListModel
+#include "../list/actorlist.h"
+
+class ActorModel : public QAbstractListModel
 {
     Q_OBJECT
-    MovieList * m_list;
+    ActorList * m_list;
 
 public:
-    MovieModel(QObject * parent = nullptr);
-    Q_INVOKABLE void setList(MovieList * list);
+    ActorModel(QObject * parent = nullptr);
+    Q_INVOKABLE void setList(ActorList * list);
 
     virtual int rowCount(const QModelIndex &parent) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
@@ -21,10 +22,8 @@ public:
     enum Roles {
         RId = Qt::UserRole+1,
         RImdbId,
-        RTitle,
-        RDirector,
-        RYear,
-        RGenres,
+        RMovieId,
+        RName,
         RFull
     };
 
@@ -34,4 +33,4 @@ public slots:
     bool isFavorite(int);
 };
 
-#endif // MOVIEMODEL_H
+#endif // ACTORMODEL_H

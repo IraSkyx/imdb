@@ -17,20 +17,29 @@ CONFIG += sailfishapp
 QT += sql
 
 SOURCES += src/IMDb.cpp \
+    src/datamanager/datamanager.cpp \
     src/domain/actor.cpp \
     src/domain/movie.cpp \
+    src/list/actorfilter.cpp \
+    src/list/actorlist.cpp \
+    src/list/moviefilter.cpp \
     src/list/movielist.cpp \
+    src/model/actormodel.cpp \
     src/model/moviemodel.cpp
 
 DISTFILES += qml/IMDb.qml \
     data/movies.db \
     qml/cover/CoverPage.qml \
+    qml/pages/ActorPage.qml \
     qml/pages/ActorsPage.qml \
+    qml/pages/EditMoviePage.qml \
+    qml/pages/MoviePage.qml \
     qml/pages/MoviesPage.qml \
     rpm/IMDb.changes.in \
     rpm/IMDb.changes.run.in \
     rpm/IMDb.spec \
     rpm/IMDb.yaml \
+    src/datamanager/datamanager.h.txt \
     translations/*.ts \
     IMDb.desktop
 
@@ -47,9 +56,14 @@ CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/IMDb-de.ts
 
 HEADERS += \
+    src/datamanager/datamanager.h \
     src/domain/actor.h \
     src/domain/movie.h \
+    src/list/actorfilter.h \
+    src/list/actorlist.h \
+    src/list/moviefilter.h \
     src/list/movielist.h \
+    src/model/actormodel.h \
     src/model/moviemodel.h
 
 database.files = data

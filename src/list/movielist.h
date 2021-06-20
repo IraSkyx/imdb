@@ -11,25 +11,27 @@ class MovieList : public QObject
     Q_OBJECT
     QList<Movie*> m_movies;
 
-    public:
-        explicit MovieList(QObject *parent = nullptr);
-        void push_back(Movie* movie);
-        void remove(int index);
-        Movie* operator[](int index) const;
-        void insert(int index, Movie* cheese);
-        Q_INVOKABLE int size() const;
+public:
+    explicit MovieList(QObject * = nullptr);
+    void push_back(Movie*);
+    void remove(int);
+    Movie* operator[](int) const;
+    void insert(int, Movie*);
+    Q_INVOKABLE int size() const;
 
-        ~MovieList();
-    protected:
-        void registerMovie(int index);
-        void unregisterMovie(int index);
-        void reregisterMovie(int index);
+    ~MovieList();
+protected:
+    void registerMovie(int);
+    void unregisterMovie(int);
+    void reregisterMovie(int);
 
-    signals:
-        void pre_insert(int index);
-        void post_insert(int index);
-        void itemChanged(int position);
+public slots:
+    Movie* find(int);
 
+signals:
+    void pre_insert(int);
+    void post_insert(int);
+    void itemChanged(int);
 };
 
 #endif // MOVIELIST_H

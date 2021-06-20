@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>data/movies.db</file>
+        <file>images/star.png</file>
+        <file>images/yellow_star.png</file>
     </qresource>
 </RCC>

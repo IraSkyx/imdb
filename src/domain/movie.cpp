@@ -5,8 +5,8 @@ Movie::Movie()
 
 }
 
-Movie::Movie(int m_id, QString m_title, QString m_director, int m_year, QString m_genres, double m_imdb_score, QObject *parent)
-: QObject(parent), m_id(m_id), m_title(m_title), m_director(m_director), m_year(m_year), m_genres(m_genres), m_imdb_score(m_imdb_score)
+Movie::Movie(int m_id, QString m_imdb_id, QString m_title, QString m_director, int m_year, QString m_genres, QObject *parent)
+: QObject(parent), m_id(m_id), m_imdb_id(m_imdb_id), m_title(m_title), m_director(m_director), m_year(m_year), m_genres(m_genres)
 {
 
 }
@@ -14,6 +14,11 @@ Movie::Movie(int m_id, QString m_title, QString m_director, int m_year, QString 
 int Movie::id() const
 {
     return this->m_id;
+}
+
+QString Movie::imdbId() const
+{
+    return this->m_imdb_id;
 }
 
 QString Movie::title() const
@@ -36,11 +41,6 @@ QString Movie::genres() const
     return this->m_genres;
 }
 
-double Movie::imdb_score() const
-{
-    return this->m_imdb_score;
-}
-
 void Movie::setId(int id)
 {
     if (m_id == id)
@@ -48,6 +48,15 @@ void Movie::setId(int id)
 
     m_id = id;
     emit idChanged(m_id);
+}
+
+void Movie::setImdbId(QString imdb_id)
+{
+    if (m_imdb_id == imdb_id)
+        return;
+
+    m_imdb_id = imdb_id;
+    emit imdbIdChanged(m_imdb_id);
 }
 
 void Movie::setTitle(QString title)
@@ -84,13 +93,4 @@ void Movie::setGenres(QString genres)
 
     m_genres = genres;
     emit genresChanged(m_genres);
-}
-
-void Movie::setImdbScore(double imdbScore)
-{
-    if (m_imdb_score == imdbScore)
-        return;
-
-    m_imdb_score = imdbScore;
-    emit imdbScoreChanged(m_imdb_score);
 }

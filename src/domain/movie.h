@@ -11,6 +11,10 @@ class Movie : public QObject
                READ id
                WRITE setId
                NOTIFY idChanged)
+    Q_PROPERTY(QString imdb_id
+               READ imdbId
+               WRITE setImdbId
+               NOTIFY imdbIdChanged)
     Q_PROPERTY(QString title
                READ title
                WRITE setTitle
@@ -27,54 +31,51 @@ class Movie : public QObject
                READ genres
                WRITE setGenres
                NOTIFY genresChanged)
-    Q_PROPERTY(double imdb_score
-               READ imdb_score
-               WRITE setImdbScore
-               NOTIFY imdbScoreChanged)
 
 public:
     explicit Movie();
 
     explicit Movie(
             int m_id,
+            QString m_imdb_id,
             QString m_title,
             QString m_director,
             int m_year,
             QString m_genres,
-            double m_imdb_score,
             QObject *parent = nullptr
     );
 
     int id() const;
+    QString imdbId() const;
     QString title() const;
     QString director() const;
     int year() const;
     QString genres() const;
-    double imdb_score() const;
 
 public slots:
     void setId(int);
+    void setImdbId(QString);
     void setTitle(QString);
     void setDirector(QString);
     void setYear(int);
     void setGenres(QString);
-    void setImdbScore(double);
 
 signals:
     void idChanged(int);
+    void imdbIdChanged(QString);
     void titleChanged(QString);
     void directorChanged(QString);
     void yearChanged(int);
     void genresChanged(QString);
-    void imdbScoreChanged(double);
 
 private:
     int m_id;
+    QString m_imdb_id;
     QString m_title;
     QString m_director;
     int m_year;
     QString m_genres;
-    double m_imdb_score;
 };
+
 
 #endif // MOVIE_H

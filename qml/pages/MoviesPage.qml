@@ -7,8 +7,24 @@ Page {
 
     allowedOrientations: Orientation.All
 
+    Column {
+        id: headerContainer
+        width: page.width
+
+        PageHeader {
+            title: qsTr("IMDb movies")
+        }
+
+        SearchField {
+            id: searchField
+            width: parent.width
+            placeholderText: qsTr("Search...")
+        }
+    }
+
     SilicaListView {
         id: listView
+        width: parent.width - 4 * Theme.paddingLarge
 
         PullDownMenu {
             MenuItem {
@@ -22,42 +38,64 @@ Page {
             }
         }
 
-        model: MovieModel {
+        header: Item {
+            id: header
+            width: headerContainer.width
+            height: headerContainer.height
+            Component.onCompleted: headerContainer.parent = header
+        }
+
+        model: MovieFilter {
+            titleCriteria: searchField.text
+            sourceModel: MovieModel {
+            }
         }
 
         Component.onCompleted: {
-            console.log(movieList)
-            model.setList(movieList)
+            model.sourceModel.setList(movieList)
         }
 
         anchors.fill: parent
-        header: PageHeader {
-            title: qsTr("IMDb movies")
-        }
+
         delegate: BackgroundItem {
             id: delegate
             width: listView.width
+            height: col.height + Theme.paddingMedium
 
-            Label {
-                id: l_title
+            Row {
                 x: Theme.horizontalPageMargin
-                text: title
-                color: Theme.highlightColor
+
+                Button {
+                    icon.source: listView.model.sourceModel.isFavorite(id) ? "qrc:/images/yellow_star.png" : "qrc:/images/star.png"
+                    icon.width: l_title.height
+                    icon.height: l_title.height
+                    onClicked: listView.model.sourceModel.isFavorite(id) ? listView.model.sourceModel.removeFromFavorite(id) :  listView.model.sourceModel.addToFavorite(id)
+                }
+
+                Column {
+                    id: col
+
+                    Label {
+                        id: l_title
+                        x: Theme.horizontalPageMargin
+                        text: title
+                        color: Theme.highlightColor
+                    }
+
+                    Label {
+                        text: year
+                        x: Theme.horizontalPageMargin
+                        color: Theme.secondaryHighlightColor
+                    }
+                }
             }
-
-            Label {
-                text: genres
-                anchors.right: parent.right
-            }
-
-
-            height: tname.height
 
             onClicked: {
-                //pageStack.push("MoviePage.qml", { movie: fullMovie } )
+                pageStack.push("MoviePage.qml", { movie: fullMovie } )
             }
 
         }
+
         VerticalScrollDecorator {}
     }
 }

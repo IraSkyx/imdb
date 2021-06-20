@@ -1,9 +1,9 @@
 #include "movielist.h"
 
 #include <QDebug>
+#include <algorithm>
 
 #include "../domain/movie.h"
-
 
 MovieList::MovieList(QObject *parent) : QObject(parent)
 {
@@ -51,13 +51,12 @@ void MovieList::registerMovie(int index)
     auto movie = m_movies[index];
 
     connect(movie,&Movie::idChanged, [=](){ emit itemChanged(index); });
+    connect(movie,&Movie::imdbIdChanged, [=](){ emit itemChanged(index); });
     connect(movie,&Movie::titleChanged,   [=](){ emit itemChanged(index); });
     connect(movie,&Movie::directorChanged, [=](){ emit itemChanged(index); });
     connect(movie,&Movie::yearChanged, [=](){ emit itemChanged(index); });
     connect(movie,&Movie::genresChanged, [=](){ emit itemChanged(index); });
-    connect(movie,&Movie::imdbScoreChanged, [=](){ emit itemChanged(index); });
 }
-
 
 void MovieList::unregisterMovie(int index)
 {
@@ -69,4 +68,15 @@ void MovieList::reregisterMovie(int index)
 {
     unregisterMovie(index);
     registerMovie(index);
+}
+
+Movie *MovieList::find(int id)
+{
+    auto itr = std::find_if(std::begin(m_movies), std::end(m_movies), [id](const Movie* m) {
+        return m->id() == id;
+    });
+
+    qDebug() << (*itr)->id();
+
+    return itr != std::end(m_movies) ? *itr : nullptr;
 }

@@ -1,17 +1,17 @@
-#include "moviemodel.h"
+#include "actormodel.h"
 
 #include <QSettings>
 
-#include "../list/movielist.h"
-#include "../domain/movie.h"
+#include "../list/actorlist.h"
+#include "../domain/actor.h"
 
-MovieModel::MovieModel(QObject *parent)
+ActorModel::ActorModel(QObject *parent)
     : QAbstractListModel(parent), m_list(nullptr)
 {
 
 }
 
-void MovieModel::setList(MovieList *list)
+void ActorModel::setList(ActorList *list)
 {
     beginResetModel();
 
@@ -22,26 +22,26 @@ void MovieModel::setList(MovieList *list)
     m_list = list;
 
     if (m_list) {
-        connect(m_list, &MovieList::pre_insert, [=](int index){
+        connect(m_list, &ActorList::pre_insert, [=](int index){
             this->beginInsertRows(QModelIndex(),index, index);
         } );
-        connect(m_list, &MovieList::post_insert,  [=](){
+        connect(m_list, &ActorList::post_insert,  [=](){
             this->endInsertRows();
         } );
-        connect(m_list, &MovieList::itemChanged, [=](int index){
+        connect(m_list, &ActorList::itemChanged, [=](int index){
             auto row = this->index(index);
-            emit MovieModel::dataChanged(row, row);
+            emit ActorModel::dataChanged(row, row);
         });
     }
     endResetModel();
 }
 
-int MovieModel::rowCount(const QModelIndex &) const
+int ActorModel::rowCount(const QModelIndex &) const
 {
     return m_list ? m_list->size() : 0;
 }
 
-QVariant MovieModel::data(const QModelIndex &index, int role) const
+QVariant ActorModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
 
@@ -55,13 +55,9 @@ QVariant MovieModel::data(const QModelIndex &index, int role) const
         break;
     case RImdbId : return movie->imdbId();
         break;
-    case RTitle : return movie->title();
+    case RMovieId : return movie->movieId();
         break;
-    case RDirector : return movie->director();
-        break;
-    case RYear : return movie->year();
-        break;
-    case RGenres : return movie->genres();
+    case RName : return movie->name();
         break;
     case RFull:
         return QVariant::fromValue(movie);
@@ -70,22 +66,20 @@ QVariant MovieModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QHash<int, QByteArray> MovieModel::roleNames() const
+QHash<int, QByteArray> ActorModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
 
     roles[RId]   = "id";
     roles[RImdbId] = "imdb_id";
-    roles[RTitle] = "title";
-    roles[RDirector] = "director";
-    roles[RYear] = "year";
-    roles[RGenres] = "genres";
-    roles[RFull]   = "fullMovie";
+    roles[RMovieId] = "movie_id";
+    roles[RName] = "name";
+    roles[RFull]   = "fullActor";
 
     return roles;
 }
 
-void MovieModel::addToFavorite(int id)
+void ActorModel::addToFavorite(int id)
 {
     beginResetModel();
 
@@ -96,7 +90,7 @@ void MovieModel::addToFavorite(int id)
     endResetModel();
 }
 
-void MovieModel::removeFromFavorite(int id)
+void ActorModel::removeFromFavorite(int id)
 {
     beginResetModel();
 
@@ -107,7 +101,7 @@ void MovieModel::removeFromFavorite(int id)
     endResetModel();
 }
 
-bool MovieModel::isFavorite(int id)
+bool ActorModel::isFavorite(int id)
 {
     QSettings settings;
     return settings.value("favorites/"+ QString(id), -1).toInt() == id;

@@ -8,7 +8,7 @@ Name:       IMDb
 # >> macros
 # << macros
 
-Summary:    My Sailfish OS Application
+Summary:    Ratings, Reviews, and Where to Watch the Best Movies ...
 Version:    0.1
 Release:    1
 Group:      Qt/Qt
@@ -24,7 +24,7 @@ BuildRequires:  pkgconfig(Qt5Quick)
 BuildRequires:  desktop-file-utils
 
 %description
-Short description of my Sailfish OS Application
+Ratings, Reviews, and Where to Watch the Best Movies ...
 
 
 %prep
