@@ -30,5 +30,5 @@ bool MovieFilter::filterAcceptsRow(int source_row, const QModelIndex &source_par
     auto index = sourceModel()->index(source_row, 0, source_parent);
     auto movieTitle = index.data(MovieModel::Roles::RTitle);
 
-    return movieTitle.toString().contains(m_title_criteria);
+    return movieTitle.toString().toLower().contains(m_title_criteria.toLower());
 }

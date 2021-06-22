@@ -30,5 +30,5 @@ bool ActorFilter::filterAcceptsRow(int source_row, const QModelIndex &source_par
     auto index = sourceModel()->index(source_row, 0, source_parent);
     auto actorName = index.data(ActorModel::Roles::RName);
 
-    return actorName.toString().contains(m_name_criteria);
+    return actorName.toString().toLower().contains(m_name_criteria.toLower());
 }

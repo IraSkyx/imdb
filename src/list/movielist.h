@@ -26,7 +26,7 @@ protected:
     void reregisterMovie(int);
 
 public slots:
-    Movie* find(int);
+    Q_INVOKABLE Movie* find(int);
 
 signals:
     void pre_insert(int);

@@ -24,6 +24,8 @@ Page {
             width: parent.width - 4 * Theme.paddingLarge
 
             Column {
+                spacing: 2 * Theme.paddingLarge
+
                 Label {
                     text: "Starred in : " + movie.title
                     color: Theme.highlightColor

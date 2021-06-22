@@ -76,7 +76,5 @@ Movie *MovieList::find(int id)
         return m->id() == id;
     });
 
-    qDebug() << (*itr)->id();
-
     return itr != std::end(m_movies) ? *itr : nullptr;
 }

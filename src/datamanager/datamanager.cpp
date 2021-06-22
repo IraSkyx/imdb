@@ -56,8 +56,8 @@ ActorList* DataManager::loadActors()
     while (query.next()) {
         list->push_back(new Actor(
                                   query.value(0).toInt(),
-                                  query.value(1).toString(),
-                                  query.value(2).toInt(),
+                                  query.value(2).toString(),
+                                  query.value(1).toInt(),
                                   query.value(3).toString()
                           ));
     }
