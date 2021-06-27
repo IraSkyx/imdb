@@ -1,9 +1,5 @@
 ## IMDb
 
-### Auteur
-
-- Adrien Lenoir : 100% du boulot
-
 ### Descriptif
 
 IMDb permet de consulter une fraction des films IMDb cultes de la plateforme ainsi que les plus grands acteurs de ces films sous forme de Master-Detail.
