@@ -1,43 +1,48 @@
 ## IMDb
 
-### Descriptif
+### Description
 
-IMDb permet de consulter une fraction des films IMDb cultes de la plateforme ainsi que les plus grands acteurs de ces films sous forme de Master-Detail.
+IMDb allows you to consult a fraction of the cult IMDb films on the platform as well as the greatest actors of these films in the form of Master-Detail.
 
-### Techniques de programmation utilisées
+### Programming techniques used
 
-### Accès BDD (SQLite)
+This program is written in plain C++ and QML using QT Quick and built as a Sailfish mobile app.
 
-Les données proviennent d'un fichier dump SQLite qui contient deux tables *movies* et *actors*.
+### DB access (SQLite)
 
-#### QObject avec QProperties
+The data comes from a SQLite dump file which contains two tables *movies* and *actors*.
 
-Chaque entité Movie et Actor est un QObject avec plusieurs QProperties. La modification d'une des propriétés entraîne son rafraîchissement dans les listes.
+#### QObject with QProperties
 
-#### ListView partiellement éditable + Modèle C++ + Tri + Recherche
+Each Movie and Actor entity is a QObject with several QProperties. Changing one of the properties causes it to be refreshed in the lists.
 
-Les listes de Movies et d'Actors s'appuient sur un modèle C++ qui contient une liste de QObject. 
+#### ListView partially editable + C++ Model + Sort + Search
 
-Elles sont éditables dans le Detail en utilisant le Push Up Menu et en cliquant sur Edit.
+The Movies and Actors lists are based on a C++ template that contains a list of QObjects. 
 
-Les listes sont triées par défaut par titre pour les films et par nom pour les acteurs. La recherche est aussi basée sur ces critères.
+They are editable in the Detail by using the Push Up Menu and clicking on Edit.
+
+The lists are sorted by default by title for movies and by name for actors. The search is also based on these criteria.
 
 #### PullDownMenu
 
-Un PullDownMenu est présent dans le Master des Movies et des Actors, il permet de montrer les pages de navigation disponibles.
+A PullDownMenu is present in the Movies and Actors Master, it shows the available navigation pages.
 
-#### Clic
+#### Click
 
-Un clic sur un Movie/Actor ouvre la page de detail.
+A click on a Movie/Actor opens the detail page.
 
 #### PushUpMenu
 
-Un PushUpMenu est présent dans le Detail des Movies et des Actors, il permet de montrer les options disponibles dans le Detail. Il contient un button qui redirige vers la page d'Edit
+A PushUpMenu is present in the Movies and Actors Detail, it allows to show the options available in the Detail. It contains a button that redirects to the Edit page
 
 ### Detail: Edit
 
-Le Movie/Actor est éditable. L'édition d'un champ notifie le modèle de ses changements.
+The Movie/Actor is editable. Editing a field notifies the model of its changes.
 
-#### Favoris (QSettings)
+#### Favorites (QSettings)
 
-Un button pour ajouter/supprimer des favoris est présent sur chaque élément du Master. Nous utilisons QSettings pour sauvegarder les favoris d'une exécution à l'autre.
+A button to add/remove favourites is present on each element of the Master. We use QSettings to save favourites from one run to the next.
+
+
+Translated with www.DeepL.com/Translator (free version)
