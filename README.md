@@ -43,6 +43,3 @@ The Movie/Actor is editable. Editing a field notifies the model of its changes.
 #### Favorites (QSettings)
 
 A button to add/remove favourites is present on each element of the Master. We use QSettings to save favourites from one run to the next.
-
-
-Translated with www.DeepL.com/Translator (free version)
